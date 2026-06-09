@@ -1,0 +1,6 @@
+﻿haystack-ai
+sentence-transformers
+python-dotenv
+requests
+pymupdf
+pandas

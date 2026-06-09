@@ -1,5 +1,7 @@
 # Python-related files
 __pycache__/
+**/__pycache__/
+**pycache**/
 *.py[cod]
 *.egg-info/
 .eggs/
@@ -44,6 +46,7 @@ temp/
 .idea/
 .vscode/
 .vscode/settings.json
+node_modules/
 
 # Framework-specific files
 local_neo4jWorkDir/
@@ -53,7 +56,13 @@ neo4jWorkDir/
 inputs/
 output/
 rag_storage/
-data/
+lightrag_storage/
+data/inputs/
+data/prompts/
+data/rag_storage/
+data/raw/
+data/indexes/
+data/vectorstores/
 
 # User cumstomized prompt directory
 prompts/entity_type/

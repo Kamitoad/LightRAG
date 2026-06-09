@@ -1,55 +1,137 @@
-<div align="center">
+﻿<!-- CourseWiki-RAG local project notes -->
 
-<div style="margin: 20px 0;">
-  <img src="./assets/logo.png" width="120" height="120" alt="LightRAG Logo" style="border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);">
-</div>
+# CourseWiki-RAG
 
-# 🚀 LightRAG: Simple and Fast Retrieval-Augmented Generation
+CourseWiki-RAG ist ein kleines Uni-Projekt zum Vergleich von drei bewusst klein gehaltenen RAG-Varianten auf derselben Studiengangs-Textbasis:
 
-<div align="center">
-    <a href="https://trendshift.io/repositories/13043" target="_blank"><img src="https://trendshift.io/api/badge/repositories/13043" alt="HKUDS%2FLightRAG | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-</div>
-<p>
-</p>
-<div align="center">
-  <div style="width: 100%; height: 2px; margin: 20px 0; background: linear-gradient(90deg, transparent, #00d9ff, transparent);"></div>
-</div>
+- `lightrag_naive`: LightRAG ohne Graph-Retrieval als interne Ablation.
+- `lightrag_mix`: LightRAG mit graphgestütztem Retrieval als Hauptsystem.
+- `haystack_naive_rag`: klassische chunk-basierte Haystack-Baseline als externe Referenz.
 
-<div align="center">
-  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 25px; text-align: center;">
-    <p>
-      <a href='https://github.com/HKUDS/LightRAG'><img src='https://img.shields.io/badge/🔥Project-Page-00d9ff?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e'></a>
-      <a href='https://arxiv.org/abs/2410.05779'><img src='https://img.shields.io/badge/📄arXiv-2410.05779-ff6b6b?style=for-the-badge&logo=arxiv&logoColor=white&labelColor=1a1a2e'></a>
-      <a href="https://github.com/HKUDS/LightRAG/stargazers"><img src='https://img.shields.io/github/stars/HKUDS/LightRAG?color=00d9ff&style=for-the-badge&logo=star&logoColor=white&labelColor=1a1a2e' /></a>
-    </p>
-    <p>
-      <img src="https://img.shields.io/badge/🐍Python-3.10-4ecdc4?style=for-the-badge&logo=python&logoColor=white&labelColor=1a1a2e">
-      <a href="https://pypi.org/project/lightrag-hku/"><img src="https://img.shields.io/pypi/v/lightrag-hku.svg?style=for-the-badge&logo=pypi&logoColor=white&labelColor=1a1a2e&color=ff6b6b"></a>
-    </p>
-    <p>
-      <a href="https://discord.gg/yF2MmDJyGJ"><img src="https://img.shields.io/badge/💬Discord-Community-7289da?style=for-the-badge&logo=discord&logoColor=white&labelColor=1a1a2e"></a>
-      <a href="https://github.com/HKUDS/LightRAG/issues/285"><img src="https://img.shields.io/badge/💬WeChat-Group-07c160?style=for-the-badge&logo=wechat&logoColor=white&labelColor=1a1a2e"></a>
-    </p>
-    <p>
-      <a href="README-zh.md"><img src="https://img.shields.io/badge/🇨🇳中文版-1a1a2e?style=for-the-badge"></a>
-      <a href="README.md"><img src="https://img.shields.io/badge/🇺🇸English-1a1a2e?style=for-the-badge"></a>
-    </p>
-    <p>
-      <a href="https://pepy.tech/projects/lightrag-hku"><img src="https://static.pepy.tech/personalized-badge/lightrag-hku?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads"></a>
-    </p>
-  </div>
-</div>
+Der Fokus liegt auf Studiengangsinformationen aus einer begrenzten THM-Datenbasis, zum Beispiel Modulhandbuch, Prüfungsordnung, Stundenplan und Studiengangsseite.
 
-</div>
+Warnhinweis: Dieses Projekt ist keine rechtsverbindliche Studienberatung. Antworten müssen gegen offizielle Dokumente geprüft werden.
 
-<div align="center" style="margin: 30px 0;">
-  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="800">
-</div>
+## Ziel
 
-<div align="center" style="margin: 30px 0;">
-    <img src="./README.assets/b2aaf634151b4706892693ffb43d9093.png" width="800" alt="LightRAG Diagram">
-</div>
+Die zentrale Forschungsfrage lautet:
 
+> Inwiefern verbessert LightRAG gegenüber klassischem chunk-basiertem RAG die Beantwortung von Studienplanungsfragen auf Basis von Modulhandbuch, Prüfungsordnung und Stundenplandaten?
+
+Zusatzfrage:
+
+> Kann ein LLM-Wiki-Layer die Nachvollziehbarkeit und Reviewbarkeit der generierten Studieninformationen verbessern?
+
+## Vergleichsdesign
+
+Für die finale Evaluation sollen alle Systeme möglichst dieselbe Textbasis, dieselben Fragen, denselben Generator und denselben Embedder verwenden. Paper-nah ist `gpt-4o` als Generator eine plausible Wahl. Für Embeddings ist `text-embedding-3-small` ein pragmatischer Startpunkt; `text-embedding-3-large` wäre ein späteres Zusatzexperiment, falls Retrieval sichtbar schwächelt.
+
+Entwicklungsmodus ohne API-Kosten:
+
+```env
+LLM_PROVIDER=none
+EMBEDDING_PROVIDER=sentence_transformers
+```
+
+Finaler OpenAI-Vergleich:
+
+```env
+LLM_PROVIDER=openai
+OPENAI_MODEL=gpt-4o
+EMBEDDING_PROVIDER=openai
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+```
+
+API-Keys gehören nur in `.env`, nicht ins Repository.
+
+## Setup
+
+Python 3.10+ wird erwartet. Unter Windows/PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Dann `.env` aus `.env.example` erstellen und anpassen.
+
+## Ordnerstruktur
+
+```text
+data/raw/                 Rohdaten, nicht versionieren
+data/processed/           gemeinsame Markdown/Textbasis für Haystack und LightRAG
+data/indexes/             generierte Haystack-Indexartefakte, nicht versionieren
+data/testset/             Fragen und Gold-Antworten
+naive_rag_haystack/       Haystack-NaiveRAG-Baseline
+lightrag_experiments/     spätere LightRAG-Vergleichsläufe
+evaluation/               JSONL-Ergebnisse, Run-Logs und manuelle Scoring-Dateien
+wiki/                     spätere reviewbare Markdown-Seiten
+scripts/                  Hilfsskripte, u. a. PDF-Extraktion
+```
+
+## Erste Schritte
+
+Der kleine Testkorpus liegt unter:
+
+```text
+data/processed/small_test_corpus.md
+```
+
+Haystack-Index erstellen:
+
+```powershell
+python naive_rag_haystack/indexing.py
+```
+
+Einzelne Query ausführen:
+
+```powershell
+python naive_rag_haystack/query.py "Wie viele CrP hat Konzepte des Deep Learning?"
+```
+
+Alle Testfragen ausführen:
+
+```powershell
+python naive_rag_haystack/run_questions.py --clear-results
+```
+
+Später LightRAG `naive` und `mix` mit derselben Fragenliste ausführen:
+
+```powershell
+python lightrag_experiments/run_questions.py --mode both --clear-storage --clear-results
+```
+
+Der LightRAG-Runner benötigt zusätzlich die LightRAG-Projektabhängigkeiten aus diesem Repository, zum Beispiel über `uv sync` oder `pip install -e .`.
+
+## Ergebnisdateien
+
+- Haystack-Ergebnisse: `evaluation/results_naive_rag.jsonl`
+- spätere LightRAG-Ergebnisse: `evaluation/results_lightrag.jsonl`
+- Indexing-Logs: `evaluation/run_log.jsonl`
+- manuelle Bewertung: `evaluation/scoring_template.csv`
+- generierte Haystack-Indexe: `data/indexes/naive_haystack_<embedding-provider>_<embedding-model>.json`
+
+Jeder Query-Eintrag enthält Frage, Antwort, Retrieved Contexts, Metadaten, Latenz, Embedding-Modell, LLM-Provider und Platzhalter für spätere Token- und Kostenschätzungen.
+
+## PDF-Extraktion
+
+PDFs werden automatisch aus `data/raw/*.pdf` nach `data/processed/*.md` extrahiert:
+
+```powershell
+python scripts/extract_pdfs.py
+```
+
+Die Markdown-Ausgabe enthält Seitenmarker, damit Haystack und LightRAG dieselbe Textbasis erhalten.
+
+## Nächste Schritte
+
+1. Haystack-Batchlauf lokal mit `LLM_PROVIDER=none` prüfen.
+2. OpenAI-Key in `.env` setzen und Haystack mit `gpt-4o` + `text-embedding-3-small` laufen lassen.
+3. LightRAG `naive` und `mix` mit derselben `data/processed/`-Basis anbinden.
+4. Alle drei Systeme gegen `data/testset/questions.csv` ausführen.
+5. `evaluation/scoring_template.csv` manuell ausfüllen und mit `python evaluation/analysis.py` zusammenfassen.
+6. Danach den Testkatalog auf 30 bis 50 Fragen erweitern.
 ---
 
 <div align="center">
@@ -513,3 +595,4 @@ primaryClass={cs.IR}
     </div>
   </div>
 </div>
+
