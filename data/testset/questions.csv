@@ -1,0 +1,7 @@
+question_id,category,question
+Q001,fact,Wie viele CrP hat Konzepte des Deep Learning?
+Q002,content,Welche Inhalte behandelt Konzepte des Deep Learning?
+Q003,uncertainty,Welche Voraussetzungen hat Secure Software Design?
+Q004,fact,Zu welchem Bereich gehört Secure Software Design?
+Q005,rule,Was sagt die Beispiel-Regel zu Wahlpflichtmodulen?
+Q006,uncertainty,Wird Secure Software Design im Beispiel-Stundenplan eindeutig angeboten?

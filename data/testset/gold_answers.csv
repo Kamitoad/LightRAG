@@ -1,0 +1,7 @@
+question_id,gold_answer,expected_sources,notes
+Q001,"6 CrP","small_test_corpus.md","Die Antwort soll die CrP-Zahl nennen und nicht über den Kontext hinausgehen."
+Q002,"Das Modul behandelt neuronale Netze, Backpropagation, Convolutional Neural Networks und Transformer.","small_test_corpus.md","Keine zusätzlichen Inhalte erfinden."
+Q003,"Nicht eindeutig gefunden.","small_test_corpus.md","Nicht als fehlende Voraussetzung im rechtlichen Sinn formulieren."
+Q004,"Bereich Software Engineering / Security.","small_test_corpus.md","Die Bereichszuordnung soll aus dem Testkorpus stammen."
+Q005,"Studierende müssen Wahlpflichtmodule gemäß der jeweiligen Prüfungsordnung einbringen. Die genaue Einbringbarkeit einzelner Module muss anhand der offiziellen Prüfungsordnung und Modulzuordnung geprüft werden.","small_test_corpus.md","Vorsichtig und nicht rechtsverbindlich formulieren."
+Q006,"Im bereitgestellten Beispiel-Stundenplan nicht eindeutig gefunden.","small_test_corpus.md","Nicht als 'wird nicht angeboten' oder 'gilt nicht' formulieren."
