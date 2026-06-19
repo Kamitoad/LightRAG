@@ -1,0 +1,10 @@
+{
+  "small_test_corpus.md": {
+    "type": "simulated_test_source",
+    "description": "Kleiner künstlicher Testkorpus für die erste NaiveRAG-Baseline.",
+    "processed_path": "data/processed/small_test_corpus.md",
+    "origin": "manually curated simulated example",
+    "sensitive": false,
+    "notes": "Nicht als offizielle THM-Quelle verwenden. Dient nur dem Smoke-Test."
+  }
+}
